@@ -5,13 +5,16 @@ const MapControlSmallSidebarComponent = () => {
   return (
     <NavigationMenu.Root
       orientation="vertical"
-      className="absolute z-10 h-full flex"
+      className="fixed top-0 left-0 h-full flex"
     >
       <NavigationMenu.List className="menu bg-white w-fit h-full outline outline-1 outline-gray-300 shadow-md shadow-black-500/40">
         <NavigationMenu.Item className="my-1 w-full">
-          <NavigationMenu.Trigger className="flex justify-center items-center text-slate-500 px-2">
+          <label
+            className="flex justify-center items-center text-slate-500 px-2"
+            htmlFor="map-drawer"
+          >
             <IconComponent name="menu" />
-          </NavigationMenu.Trigger>
+          </label>
         </NavigationMenu.Item>
 
         <NavigationMenu.Item className="my-1 w-full">

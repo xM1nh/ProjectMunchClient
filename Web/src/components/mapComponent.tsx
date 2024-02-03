@@ -1,5 +1,4 @@
 import Map, { MapRef } from "react-map-gl";
-import MapControlSmallSidebarComponent from "./mapControlSmallSidebarComponent";
 import { useCallback, useEffect, useRef } from "react";
 
 const MapComponent = () => {
@@ -26,7 +25,6 @@ const MapComponent = () => {
 
   return (
     <>
-      <MapControlSmallSidebarComponent />
       <Map
         ref={mapRef}
         mapboxAccessToken="pk.eyJ1IjoidmFsdGlsaW9uIiwiYSI6ImNsczFibHY3cjA5aHAyanBlMnhwNm1jczEifQ.XAwnmiedi4X03hw5MyxBuA"
@@ -35,7 +33,7 @@ const MapComponent = () => {
           latitude: 37.8,
           zoom: 14,
         }}
-        style={{ width: "100vw", height: "100vh" }}
+        style={{ width: "100vw", height: "100vh", zIndex: -1 }}
         mapStyle="mapbox://styles/mapbox/streets-v12"
       />
     </>

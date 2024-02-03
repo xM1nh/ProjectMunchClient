@@ -16,16 +16,14 @@ const IconComponent = ({
   tw = "",
 }: IIconComponentProps) => {
   return (
-    <div>
-      <span
-        className={`material-symbols-outlined ${tw}`}
-        style={{
-          fontVariationSettings: `'FILL' ${fill},'wght' ${weight},'GRAD' ${grade},'opsz' ${opticalSize}`,
-        }}
-      >
-        {name}
-      </span>
-    </div>
+    <span
+      className={`material-symbols-outlined ${tw}`}
+      style={{
+        fontVariationSettings: `'FILL' ${fill},'wght' ${weight},'GRAD' ${grade},'opsz' ${opticalSize}`,
+      }}
+    >
+      {name}
+    </span>
   );
 };
 
