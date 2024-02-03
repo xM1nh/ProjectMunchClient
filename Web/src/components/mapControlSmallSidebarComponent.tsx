@@ -1,5 +1,6 @@
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import IconComponent from "./iconComponent";
+import MapControlSidebarPopoutComponent from "./mapControlSidebarPopoutComponent";
 
 const MapControlSmallSidebarComponent = () => {
   return (
@@ -18,10 +19,7 @@ const MapControlSmallSidebarComponent = () => {
         </NavigationMenu.Item>
 
         <NavigationMenu.Item className="my-1 w-full">
-          <NavigationMenu.Trigger className="flex flex-col justify-center items-center gap-0 text-slate-500 text-center px-2">
-            <IconComponent name="bookmark" />
-            <span className="text-xs font-semibold">Saved</span>
-          </NavigationMenu.Trigger>
+          <MapControlSidebarPopoutComponent />
         </NavigationMenu.Item>
 
         <NavigationMenu.Item className="my-1 w-full">
