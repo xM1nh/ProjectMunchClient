@@ -33,7 +33,7 @@ const MapComponent = () => {
           latitude: 37.8,
           zoom: 14,
         }}
-        style={{ width: "100vw", height: "100vh", zIndex: -1 }}
+        style={{ width: "100vw", height: "100vh" }}
         mapStyle="mapbox://styles/mapbox/streets-v12"
       />
     </>

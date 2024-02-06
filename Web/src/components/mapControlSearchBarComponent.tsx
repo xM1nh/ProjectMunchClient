@@ -1,32 +1,71 @@
-import { useState } from "react";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { PopoverPortal } from "@radix-ui/react-popover";
+import { useRef, useState } from "react";
 import IconComponent from "./iconComponent";
-import { Combobox } from "@headlessui/react";
 
 const MapControlSearchBarComponent = () => {
-  const [searchQuery, setSearchQuery] = useState<string>("");
+  const inputRef = useRef<HTMLInputElement>(null);
+  const triggerRef = useRef<HTMLDivElement>(null);
+  const [open, setOpen] = useState<boolean>(false);
 
   return (
-    <Combobox>
-      <div className="flex flex-col gap-1 absolute top-4 left-24 outline-gray-300">
-        <div className="flex flex-row justify-between items-center gap-8 rounded-xl px-4 shadow-md bg-white">
-          <Combobox.Input
-            onChange={(e) => setSearchQuery(e.target.value)}
-            value={searchQuery}
-            className="input input-ghost focus:outline-none focus-within:outline-none focus:border-none"
-          />
-          <button className="btn no-animation btn-ghost relative hover:bg-transparent focus:bg-transparent">
-            <IconComponent name="search" />
-          </button>
-        </div>
-        <Combobox.Options className="menu relative bg-white rounded-xl px-4 shadow-md">
-          <Combobox.Option value={1}>1</Combobox.Option>
-          <Combobox.Option value={1}>1</Combobox.Option>
-          <Combobox.Option value={1}>1</Combobox.Option>
-          <Combobox.Option value={1}>1</Combobox.Option>
-          <Combobox.Option value={1}>1</Combobox.Option>
-        </Combobox.Options>
-      </div>
-    </Combobox>
+    <Command className="h-fit m-4 rounded-2xl w-fit z-10">
+      <form
+        className="flex items-center w-full pl-2"
+        onSubmit={() => console.log("submmittd")}
+      >
+        <CommandInput
+          ref={inputRef}
+          className="w-64"
+          placeholder="Search Munch..."
+          onFocus={() => {
+            triggerRef.current?.click();
+          }}
+        />
+        <button className="flex justify-center items-center" type="submit">
+          <IconComponent name="search" className="px-4" />
+        </button>
+      </form>
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <div ref={triggerRef} role="button"></div>
+        </PopoverTrigger>
+        <PopoverPortal>
+          <PopoverContent
+            className="rounded-2xl w-fit px-0"
+            onOpenAutoFocus={(e) => e.preventDefault()}
+            onCloseAutoFocus={(e) => e.preventDefault()}
+            onEscapeKeyDown={(e) => e.preventDefault()}
+            onInteractOutside={(e) => {
+              if (e.target == inputRef.current) {
+                e.preventDefault();
+              }
+            }}
+          >
+            <CommandList className="w-80 mx-3">
+              <CommandEmpty>No results found.</CommandEmpty>
+              <CommandGroup heading="Recents">
+                <CommandItem>Calendar</CommandItem>
+                <CommandItem>Search Emoji</CommandItem>
+                <CommandItem>Calculator</CommandItem>
+              </CommandGroup>
+            </CommandList>
+          </PopoverContent>
+        </PopoverPortal>
+      </Popover>
+    </Command>
   );
 };
 
