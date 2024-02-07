@@ -1,12 +1,12 @@
 import MapComponent from "../components/mapComponent";
 import MapControlComponent from "../components/mapControlComponent";
+import Layout from "./layout";
 
 const MapPage = () => {
   return (
-    <div>
+    <Layout>
       <MapComponent />
-      <MapControlComponent />
-    </div>
+    </Layout>
   );
 };
 

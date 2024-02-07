@@ -12,16 +12,15 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { PopoverPortal } from "@radix-ui/react-popover";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import IconComponent from "./iconComponent";
 
 const MapControlSearchBarComponent = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
-  const [open, setOpen] = useState<boolean>(false);
 
   return (
-    <Command className="h-fit m-4 rounded-2xl w-fit z-10">
+    <Command className="h-fit m-4 rounded-2xl w-fit z-10 shadow-md">
       <form
         className="flex items-center w-full pl-2"
         onSubmit={() => console.log("submmittd")}
@@ -38,7 +37,7 @@ const MapControlSearchBarComponent = () => {
           <IconComponent name="search" className="px-4" />
         </button>
       </form>
-      <Popover open={open} onOpenChange={setOpen}>
+      <Popover>
         <PopoverTrigger asChild>
           <div ref={triggerRef} role="button"></div>
         </PopoverTrigger>
