@@ -1,5 +1,6 @@
-import Map, { MapRef } from "react-map-gl";
+import Map, { MapRef, Marker } from "react-map-gl";
 import { useCallback, useEffect, useRef } from "react";
+import IconComponent from "./iconComponent";
 
 const MapComponent = () => {
   const mapRef = useRef<MapRef>(null);
@@ -35,7 +36,15 @@ const MapComponent = () => {
         }}
         style={{ width: "100vw", height: "100vh" }}
         mapStyle="mapbox://styles/mapbox/streets-v12"
-      />
+      >
+        <Marker longitude={-122.4} latitude={37.8} anchor="bottom">
+          <IconComponent
+            name="location_on"
+            fill={1}
+            className="text-5xl text-red-900"
+          />
+        </Marker>
+      </Map>
     </>
   );
 };
