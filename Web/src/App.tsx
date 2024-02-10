@@ -1,4 +1,4 @@
-import { ThemeProvider } from "@/components/contexts/themeContext";
+import { ThemeProvider } from "@/components/providers/themeProvider";
 import MapPage from "./pages/mapPage";
 
 function App() {
