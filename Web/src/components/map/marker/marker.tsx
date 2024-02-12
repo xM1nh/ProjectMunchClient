@@ -3,6 +3,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Marker } from "react-map-gl";
 import IconComponent from "@/components/iconComponent";
 import Popup from "./markerPopup";
@@ -15,22 +16,27 @@ const MapMarker = ({ long, lat, ...props }: IMapMarker) => {
   return (
     <div {...props}>
       <Marker longitude={long} latitude={lat} anchor="top">
-        <HoverCard>
-          <HoverCardTrigger>
-            <IconComponent
-              name="location_on"
-              fill={1}
-              className="text-5xl text-red-900 hover:cursor-pointer hover:outline-1 hover:outline-white"
-            />
-          </HoverCardTrigger>
-          <HoverCardContent
-            side="top"
-            sideOffset={40}
-            className="tooltip bg-white p-1"
-          >
-            <Popup />
-          </HoverCardContent>
-        </HoverCard>
+        <Dialog>
+          <HoverCard>
+            <DialogTrigger asChild>
+              <HoverCardTrigger>
+                <IconComponent
+                  name="location_on"
+                  fill={1}
+                  className="text-5xl text-red-900 hover:cursor-pointer hover:outline-1 hover:outline-white"
+                />
+              </HoverCardTrigger>
+            </DialogTrigger>
+            <HoverCardContent
+              side="top"
+              sideOffset={40}
+              className="tooltip bg-white p-1"
+            >
+              <Popup />
+            </HoverCardContent>
+            <DialogContent>Test</DialogContent>
+          </HoverCard>
+        </Dialog>
       </Marker>
     </div>
   );

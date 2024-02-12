@@ -13,21 +13,21 @@ import {
 } from "@/components/ui/popover";
 import { PopoverPortal } from "@radix-ui/react-popover";
 import { useRef } from "react";
-import IconComponent from "./iconComponent";
+import IconComponent from "@/components/iconComponent";
 
 const MapControlSearchBarComponent = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <Command className="h-fit m-4 rounded-2xl w-fit z-10 shadow-md">
+    <Command className="m-4 rounded-2xl w-fit min-w-fit z-10 shadow-md">
       <form
         className="flex items-center w-full pl-2"
         onSubmit={() => console.log("submmittd")}
       >
         <CommandInput
           ref={inputRef}
-          className="w-64"
+          className="w-64 btn-md"
           placeholder="Search Munch..."
           onFocus={() => {
             triggerRef.current?.click();

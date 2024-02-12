@@ -11,7 +11,7 @@ import Sidebar from "@/components/sidebar";
 const HeaderMenu = () => {
   return (
     <Sheet>
-      <SheetTrigger className=" flex items-center gap-1">
+      <SheetTrigger className="btn btn-ghost flex items-center gap-1">
         <IconComponent name="menu" className="text-2xl" />
         <span className="text-lg font-semibold">Menu</span>
       </SheetTrigger>
