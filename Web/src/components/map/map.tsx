@@ -1,8 +1,44 @@
-import Map, { MapRef } from "react-map-gl";
+import Map, { MapRef, NavigationControl } from "react-map-gl";
 import { useEffect, useRef, useState } from "react";
-import MapMarker from "./marker/marker";
+import PointOfInterest from "./pointOfInterest/pointOfInterest";
+import IPointOfInterest from "@/interfaces/IPointOfInterest";
 
 const ZOOM = 14;
+
+const MOCK_DATA: IPointOfInterest[] = [
+  {
+    longtitude: -117.9,
+    latitude: 33.7,
+    name: "Home",
+    description: "home",
+    reviews: 1,
+    photos: [],
+  },
+  {
+    longtitude: -118.9,
+    latitude: 33.7,
+    name: "Home",
+    description: "home",
+    reviews: 1,
+    photos: [],
+  },
+  {
+    longtitude: -119.9,
+    latitude: 33.7,
+    name: "Home",
+    description: "home",
+    reviews: 1,
+    photos: [],
+  },
+  {
+    longtitude: -120.9,
+    latitude: 33.7,
+    name: "Home",
+    description: "home",
+    reviews: 1,
+    photos: [],
+  },
+];
 
 const MapComponent = () => {
   const mapRef = useRef<MapRef>(null);
@@ -50,22 +86,27 @@ const MapComponent = () => {
       touchPitch={isMouseEventsEnable}
       touchZoomRotate={isMouseEventsEnable}
     >
-      <MapMarker
-        long={-122.4}
-        lat={37.8}
-        onMouseEnter={() => setIsMouseEventsEnable(false)}
-        onMouseLeave={() => setIsMouseEventsEnable(true)}
-        onBlur={() => setIsMouseEventsEnable(true)}
-        onClick={() => {
-          if ((mapRef.current?.getZoom() as number) < ZOOM) {
-            mapRef.current?.flyTo({
-              center: [-122.4, 37.8],
-              duration: 3000,
-              zoom: ZOOM,
-            });
-          }
-        }}
-      />
+      {MOCK_DATA.map((poi, i) => {
+        return (
+          <PointOfInterest
+            data={poi}
+            key={i}
+            onMouseEnter={() => setIsMouseEventsEnable(false)}
+            onMouseLeave={() => setIsMouseEventsEnable(true)}
+            onBlur={() => setIsMouseEventsEnable(true)}
+            onClick={() => {
+              if ((mapRef.current?.getZoom() as number) < ZOOM) {
+                mapRef.current?.flyTo({
+                  center: [poi.longtitude, poi.latitude],
+                  duration: 3000,
+                  zoom: ZOOM,
+                });
+              }
+            }}
+          />
+        );
+      })}
+      <NavigationControl />
     </Map>
   );
 };

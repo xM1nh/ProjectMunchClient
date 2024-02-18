@@ -6,16 +6,18 @@ import {
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Marker } from "react-map-gl";
 import IconComponent from "@/components/iconComponent";
-import Popup from "./markerPopup";
-import ICoordinates from "./ICoordinates";
+import PointOfInterestHoverCard from "./pointOfInterestHoverCard";
 import { HTMLAttributes } from "react";
+import IPointOfInterest from "@/interfaces/IPointOfInterest";
 
-interface IMapMarker extends ICoordinates, HTMLAttributes<HTMLDivElement> {}
+interface IPointOfInterestProps extends HTMLAttributes<HTMLDivElement> {
+  data: IPointOfInterest;
+}
 
-const MapMarker = ({ long, lat, ...props }: IMapMarker) => {
+const PointOfInterest = ({ data, ...props }: IPointOfInterestProps) => {
   return (
     <div {...props}>
-      <Marker longitude={long} latitude={lat} anchor="top">
+      <Marker longitude={data.longtitude} latitude={data.latitude} anchor="top">
         <Dialog>
           <HoverCard>
             <DialogTrigger asChild>
@@ -32,7 +34,7 @@ const MapMarker = ({ long, lat, ...props }: IMapMarker) => {
               sideOffset={40}
               className="tooltip bg-white p-1"
             >
-              <Popup />
+              <PointOfInterestHoverCard />
             </HoverCardContent>
             <DialogContent>Test</DialogContent>
           </HoverCard>
@@ -42,4 +44,4 @@ const MapMarker = ({ long, lat, ...props }: IMapMarker) => {
   );
 };
 
-export default MapMarker;
+export default PointOfInterest;

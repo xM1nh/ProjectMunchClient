@@ -7,7 +7,15 @@ import {
 } from "@/components/ui/carousel";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
-const MarkerPopup = () => {
+const CarouselImage = ({ source }: { source: string }) => {
+  return (
+    <CarouselItem>
+      <img src={source} className="w-4 h-4" />
+    </CarouselItem>
+  );
+};
+
+const PointOfInterestHoverCard = () => {
   return (
     <Dialog>
       <Carousel opts={{ loop: true }}>
@@ -28,4 +36,4 @@ const MarkerPopup = () => {
   );
 };
 
-export default MarkerPopup;
+export default PointOfInterestHoverCard;
