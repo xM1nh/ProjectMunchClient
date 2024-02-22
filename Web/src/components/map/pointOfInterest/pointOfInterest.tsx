@@ -6,9 +6,9 @@ import {
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Marker } from "react-map-gl";
 import IconComponent from "@/components/iconComponent";
-import PointOfInterestHoverCard from "./pointOfInterestHoverCard";
 import { HTMLAttributes } from "react";
 import IPointOfInterest from "@/interfaces/IPointOfInterest";
+import PointOfInterestSmallCard from "./pointOfInterestSmallCard";
 
 interface IPointOfInterestProps extends HTMLAttributes<HTMLDivElement> {
   data: IPointOfInterest;
@@ -17,7 +17,7 @@ interface IPointOfInterestProps extends HTMLAttributes<HTMLDivElement> {
 const PointOfInterest = ({ data, ...props }: IPointOfInterestProps) => {
   return (
     <div {...props}>
-      <Marker longitude={data.longtitude} latitude={data.latitude} anchor="top">
+      <Marker longitude={data.longitude} latitude={data.latitude} anchor="top">
         <Dialog>
           <HoverCard>
             <DialogTrigger asChild>
@@ -34,7 +34,12 @@ const PointOfInterest = ({ data, ...props }: IPointOfInterestProps) => {
               sideOffset={40}
               className="tooltip bg-white p-1"
             >
-              <PointOfInterestHoverCard />
+              <PointOfInterestSmallCard
+                photos={data.photos}
+                name={data.name}
+                description={data.description}
+                review={data.reviews}
+              />
             </HoverCardContent>
             <DialogContent>Test</DialogContent>
           </HoverCard>

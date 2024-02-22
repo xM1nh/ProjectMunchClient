@@ -12,30 +12,47 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { PopoverPortal } from "@radix-ui/react-popover";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import IconComponent from "@/components/iconComponent";
+import AllFilterButton from "./allFilterButton";
 
 const MapControlSearchBarComponent = () => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
+  const [dropdownWidth, setDropdownWidth] = useState(0);
+
+  useEffect(() => {
+    setDropdownWidth(containerRef.current?.offsetWidth as number);
+    const getWidth = () => {
+      setDropdownWidth(containerRef.current?.offsetWidth as number);
+    };
+    window.addEventListener("resize", getWidth);
+
+    return () => window.removeEventListener("resize", getWidth);
+  }, []);
 
   return (
-    <Command className="m-4 rounded-2xl w-fit min-w-fit z-10 shadow-md">
-      <form
-        className="flex items-center w-full pl-2"
-        onSubmit={() => console.log("submmittd")}
-      >
+    <Command
+      className="m-4 rounded-2xl w-full sm:w-1/2 lg:w-96 z-10 shadow-md"
+      ref={containerRef}
+    >
+      <form className="flex items-center justify-end px-2">
         <CommandInput
           ref={inputRef}
-          className="w-64 btn-md"
+          className="w-full btn-md"
           placeholder="Search Munch..."
           onFocus={() => {
             triggerRef.current?.click();
           }}
         />
-        <button className="flex justify-center items-center" type="submit">
-          <IconComponent name="search" className="px-4" />
+        <button
+          className="flex justify-center items-center btn btn-ghost rounded-none px-2"
+          type="submit"
+        >
+          <IconComponent name="search" />
         </button>
+        <AllFilterButton className="flex justify-center items-center btn btn-ghost rounded-none pl-2 pr-3 sm:hidden" />
       </form>
       <Popover>
         <PopoverTrigger asChild>
@@ -46,14 +63,13 @@ const MapControlSearchBarComponent = () => {
             className="rounded-2xl w-fit px-0"
             onOpenAutoFocus={(e) => e.preventDefault()}
             onCloseAutoFocus={(e) => e.preventDefault()}
-            onEscapeKeyDown={(e) => e.preventDefault()}
             onInteractOutside={(e) => {
               if (e.target == inputRef.current) {
                 e.preventDefault();
               }
             }}
           >
-            <CommandList className="w-80 mx-3">
+            <CommandList className="" style={{ width: dropdownWidth }}>
               <CommandEmpty>No results found.</CommandEmpty>
               <CommandGroup heading="Recents">
                 <CommandItem>Calendar</CommandItem>

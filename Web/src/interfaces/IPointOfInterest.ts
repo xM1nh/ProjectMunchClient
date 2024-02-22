@@ -1,5 +1,5 @@
 export default interface IPointOfInterest {
-  longtitude: number;
+  longitude: number;
   latitude: number;
   name: string;
   description: string;

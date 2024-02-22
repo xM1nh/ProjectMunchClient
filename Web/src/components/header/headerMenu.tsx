@@ -13,7 +13,7 @@ const HeaderMenu = () => {
     <Sheet>
       <SheetTrigger className="btn btn-ghost flex items-center gap-1">
         <IconComponent name="menu" className="text-2xl" />
-        <span className="text-lg font-semibold">Menu</span>
+        <span className="hidden sm:block text-lg font-semibold">Menu</span>
       </SheetTrigger>
       <SheetContent side={"left"} className="w-80">
         <SheetHeader>
