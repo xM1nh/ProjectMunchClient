@@ -1,4 +1,8 @@
-import Map, { MapRef, NavigationControl } from "react-map-gl";
+import Map, {
+  MapLayerMouseEvent,
+  MapRef,
+  NavigationControl,
+} from "react-map-gl";
 import { useEffect, useRef, useState } from "react";
 import PointOfInterest from "./pointOfInterest/pointOfInterest";
 import IPointOfInterest from "@/interfaces/IPointOfInterest";
@@ -11,7 +15,8 @@ const MapComponent = ({
   pointOfInterests: IPointOfInterest[];
 }) => {
   const mapRef = useRef<MapRef>(null);
-  const [isMouseEventsEnable, setIsMouseEventsEnable] = useState<boolean>(true);
+  const [isMouseEventsEnable, setIsMouseEventsEnable] = useState(true);
+  const [isSelecting, setIsSelecting] = useState(false);
 
   const onLocationSuccess = (position: GeolocationPosition) => {
     const lat = position.coords.latitude;
@@ -21,6 +26,11 @@ const MapComponent = ({
 
   const onLocationError = () => {
     console.log("Unable to retrieve your location");
+  };
+
+  const handleMapClick = (e: MapLayerMouseEvent) => {
+    setIsSelecting((prev) => !prev);
+    console.log(e.lngLat);
   };
 
   useEffect(() => {
@@ -47,6 +57,7 @@ const MapComponent = ({
       }}
       mapStyle="mapbox://styles/mapbox/streets-v12"
       doubleClickZoom={isMouseEventsEnable}
+      onClick={handleMapClick}
     >
       {pointOfInterests.map((poi, i) => {
         return (

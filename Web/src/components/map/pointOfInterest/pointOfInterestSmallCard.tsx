@@ -20,7 +20,7 @@ interface IPointOfInterestHoverCardProps
 const CarouselImage = ({ source }: { source: string }) => {
   return (
     <CarouselItem>
-      <img src={source} className="w-full h-60 object-cover" />
+      <img src={source} className="w-full md:h-40 lg:h-60 object-cover" />
     </CarouselItem>
   );
 };

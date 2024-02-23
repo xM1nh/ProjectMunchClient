@@ -66,10 +66,10 @@ const MapPage = () => {
     <Layout>
       <div className="flex w-full h-full relative">
         <MapControlComponent />
-        <div className="w-0 sm:w-2/3 lg:w-4/5 h-full relative ">
+        <div className="w-full sm:w-3/4 lg:w-4/5 h-full relative ">
           <Map pointOfInterests={MOCK_DATA} />
         </div>
-        <div className="w-full sm:w-1/3 lg:w-1/5">
+        <div className="w-0 sm:w-1/4 lg:w-1/5">
           <MapSidebarComponent pointOfInterests={MOCK_DATA} />
         </div>
       </div>
