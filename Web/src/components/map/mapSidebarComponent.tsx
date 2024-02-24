@@ -1,4 +1,4 @@
-import IPointOfInterest from "@/interfaces/IPointOfInterest";
+import IPointOfInterest from "@/types";
 import PointOfInterestSmallCard from "./pointOfInterest/pointOfInterestSmallCard";
 
 const MapSidebarComponent = ({

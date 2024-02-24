@@ -2,7 +2,7 @@ import MapControlComponent from "@/components/map/control/mapControlComponent";
 import Map from "../components/map/map";
 import Layout from "./layout";
 import MapSidebarComponent from "@/components/map/mapSidebarComponent";
-import IPointOfInterest from "@/interfaces/IPointOfInterest";
+import IPointOfInterest from "@/types";
 import PlaceholderImage from "@/assets/placeholder.jpg";
 import PlaceholderImage2 from "@/assets/placeholder2.png";
 

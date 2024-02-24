@@ -3,20 +3,20 @@ import Map, {
   MapRef,
   NavigationControl,
 } from "react-map-gl";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import PointOfInterest from "./pointOfInterest/pointOfInterest";
-import IPointOfInterest from "@/interfaces/IPointOfInterest";
+import { TPointOfInterest } from "@/types";
 
 const ZOOM = 14;
 
 const MapComponent = ({
   pointOfInterests,
 }: {
-  pointOfInterests: IPointOfInterest[];
+  pointOfInterests: TPointOfInterest[];
 }) => {
   const mapRef = useRef<MapRef>(null);
   const [isMouseEventsEnable, setIsMouseEventsEnable] = useState(true);
-  const [isSelecting, setIsSelecting] = useState(false);
+  const [addedMarker, setAddedMarker] = useState(null);
 
   const onLocationSuccess = (position: GeolocationPosition) => {
     const lat = position.coords.latitude;
@@ -28,10 +28,31 @@ const MapComponent = ({
     console.log("Unable to retrieve your location");
   };
 
-  const handleMapClick = (e: MapLayerMouseEvent) => {
-    setIsSelecting((prev) => !prev);
-    console.log(e.lngLat);
-  };
+  const handleMapClick = (e: MapLayerMouseEvent) => {};
+
+  const markers = useMemo(
+    () =>
+      pointOfInterests.map((poi, i) => {
+        return (
+          <PointOfInterest
+            data={poi}
+            key={i}
+            onMouseEnter={() => setIsMouseEventsEnable(false)}
+            onMouseLeave={() => setIsMouseEventsEnable(true)}
+            onClick={() => {
+              if ((mapRef.current?.getZoom() as number) < ZOOM) {
+                mapRef.current?.flyTo({
+                  center: [poi.longitude, poi.latitude],
+                  duration: 3000,
+                  zoom: ZOOM,
+                });
+              }
+            }}
+          />
+        );
+      }),
+    [pointOfInterests]
+  );
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -59,25 +80,7 @@ const MapComponent = ({
       doubleClickZoom={isMouseEventsEnable}
       onClick={handleMapClick}
     >
-      {pointOfInterests.map((poi, i) => {
-        return (
-          <PointOfInterest
-            data={poi}
-            key={i}
-            onMouseEnter={() => setIsMouseEventsEnable(false)}
-            onMouseLeave={() => setIsMouseEventsEnable(true)}
-            onClick={() => {
-              if ((mapRef.current?.getZoom() as number) < ZOOM) {
-                mapRef.current?.flyTo({
-                  center: [poi.longitude, poi.latitude],
-                  duration: 3000,
-                  zoom: ZOOM,
-                });
-              }
-            }}
-          />
-        );
-      })}
+      {markers}
       <NavigationControl position="bottom-right" />
     </Map>
   );

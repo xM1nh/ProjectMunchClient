@@ -7,11 +7,11 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Marker } from "react-map-gl";
 import IconComponent from "@/components/iconComponent";
 import { HTMLAttributes } from "react";
-import IPointOfInterest from "@/interfaces/IPointOfInterest";
+import { TPointOfInterest } from "@/types";
 import PointOfInterestSmallCard from "./pointOfInterestSmallCard";
 
 interface IPointOfInterestProps extends HTMLAttributes<HTMLDivElement> {
-  data: IPointOfInterest;
+  data: TPointOfInterest;
 }
 
 const PointOfInterest = ({ data, ...props }: IPointOfInterestProps) => {
