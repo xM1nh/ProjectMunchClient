@@ -5,7 +5,7 @@ import Map, {
 } from "react-map-gl";
 import { useEffect, useMemo, useRef, useState } from "react";
 import PointOfInterest from "./pointOfInterest/pointOfInterest";
-import { TPointOfInterest } from "@/types";
+import { TCoordinates, TPointOfInterest } from "@/types";
 
 const ZOOM = 14;
 
@@ -16,7 +16,8 @@ const MapComponent = ({
 }) => {
   const mapRef = useRef<MapRef>(null);
   const [isMouseEventsEnable, setIsMouseEventsEnable] = useState(true);
-  const [addedMarker, setAddedMarker] = useState(null);
+  const [userAddedMarkerCoords, setUserAddedMarkerCoords] =
+    useState<TCoordinates | null>(null);
 
   const onLocationSuccess = (position: GeolocationPosition) => {
     const lat = position.coords.latitude;
@@ -28,7 +29,24 @@ const MapComponent = ({
     console.log("Unable to retrieve your location");
   };
 
-  const handleMapClick = (e: MapLayerMouseEvent) => {};
+  const handleMapClick = (e: MapLayerMouseEvent) => {
+    if (userAddedMarkerCoords) {
+      setUserAddedMarkerCoords({
+        longitude: e.lngLat.lng,
+        latitude: e.lngLat.lat,
+      });
+    } else {
+      setUserAddedMarkerCoords(null);
+    }
+  };
+
+  const addedMarkerData: TPointOfInterest = {
+    longitude: userAddedMarkerCoords?.longitude as number,
+    latitude: userAddedMarkerCoords?.latitude as number,
+    name: "",
+    description: "",
+  };
+  const userAddedMarker = <PointOfInterest data={addedMarkerData} />;
 
   const markers = useMemo(
     () =>
@@ -81,6 +99,7 @@ const MapComponent = ({
       onClick={handleMapClick}
     >
       {markers}
+      {userAddedMarkerCoords && userAddedMarker}
       <NavigationControl position="bottom-right" />
     </Map>
   );

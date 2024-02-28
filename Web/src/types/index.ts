@@ -3,8 +3,8 @@ export type TPointOfInterest = {
   latitude: number;
   name: string;
   description: string;
-  reviews: number;
-  photos: string[];
+  reviews?: number;
+  photos?: string[];
 };
 
 export type TCoordinates = {

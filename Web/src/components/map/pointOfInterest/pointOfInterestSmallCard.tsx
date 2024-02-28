@@ -11,10 +11,10 @@ import { HTMLAttributes } from "react";
 
 interface IPointOfInterestHoverCardProps
   extends HTMLAttributes<HTMLDivElement> {
-  photos: string[];
+  photos?: string[];
   name: string;
   description: string;
-  review: number;
+  review?: number;
 }
 
 const CarouselImage = ({ source }: { source: string }) => {
@@ -39,7 +39,7 @@ const PointOfInterestSmallCard = ({
         <Carousel opts={{ loop: true }}>
           <DialogTrigger asChild>
             <CarouselContent className="cursor-pointer">
-              {photos.map((photo, i) => {
+              {photos?.map((photo, i) => {
                 return <CarouselImage source={photo} key={`asdf${i}`} />;
               })}
             </CarouselContent>
