@@ -6,29 +6,29 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-import PriceFilterComponent from "./priceFilterComponent";
-import AllFilterButton from "./allFilterButton";
+import AllFilter from "@/components/Map/Control/AllFilter";
+import PriceFilter from "@/components/Map/Control/PriceFilter";
 
-const MapControlFilterComponent = () => {
+const FilterBar = () => {
   return (
     <div className="z-10 hidden flex-row items-center gap-4 sm:flex sm:w-1/3 sm:mx-4">
-      <AllFilterButton className="btn bg-white shadow-md" />
+      <AllFilter className="btn bg-white shadow-md" />
       <Carousel className="w-full">
         <CarouselContent>
           <CarouselItem className="basis-auto">
-            <PriceFilterComponent />
+            <PriceFilter />
           </CarouselItem>
           <CarouselItem className="basis-auto">
-            <PriceFilterComponent />
+            <PriceFilter />
           </CarouselItem>
           <CarouselItem className="basis-auto">
-            <PriceFilterComponent />
+            <PriceFilter />
           </CarouselItem>
           <CarouselItem className="basis-auto">
-            <PriceFilterComponent />
+            <PriceFilter />
           </CarouselItem>
           <CarouselItem className="basis-auto">
-            <PriceFilterComponent />
+            <PriceFilter />
           </CarouselItem>
         </CarouselContent>
         <CarouselNext className="rounded-full" />
@@ -38,4 +38,4 @@ const MapControlFilterComponent = () => {
   );
 };
 
-export default MapControlFilterComponent;
+export default FilterBar;

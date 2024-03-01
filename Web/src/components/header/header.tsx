@@ -5,8 +5,9 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
 
-import HeaderMenu from "@/components/header/headerMenu";
-import HeaderAvatar from "@/components/header/headerAvatar";
+import HeaderMenu from "@/components/Header/HeaderMenu";
+import HeaderAvatar from "@/components/Header/HeaderAvatar";
+import HeaderLogin from "./HeaderLogin";
 
 const Header = () => {
   return (
@@ -27,7 +28,8 @@ const Header = () => {
           </div>
           <div className="navbar-end">
             <NavigationMenuItem>
-              <HeaderAvatar />
+              {/* <HeaderAvatar /> */}
+              <HeaderLogin />
             </NavigationMenuItem>
           </div>
         </NavigationMenuList>

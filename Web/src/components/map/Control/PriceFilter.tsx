@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { useState } from "react";
 
-const PriceFilterComponent = () => {
+const PriceFilter = () => {
   const [min, setMin] = useState<number | null>(null);
   const [max, setMax] = useState<number | null>(null);
 
@@ -49,4 +49,4 @@ const PriceFilterComponent = () => {
   );
 };
 
-export default PriceFilterComponent;
+export default PriceFilter;

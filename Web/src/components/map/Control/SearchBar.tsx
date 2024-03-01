@@ -13,10 +13,10 @@ import {
 } from "@/components/ui/popover";
 import { PopoverPortal } from "@radix-ui/react-popover";
 import { useEffect, useRef, useState } from "react";
-import IconComponent from "@/components/iconComponent";
-import AllFilterButton from "./allFilterButton";
+import IconComponent from "@/components/IconComponent";
+import AllFilterButton from "@/components/Map/Control/AllFilter";
 
-const MapControlSearchBarComponent = () => {
+const SearchBar = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
@@ -84,4 +84,4 @@ const MapControlSearchBarComponent = () => {
   );
 };
 
-export default MapControlSearchBarComponent;
+export default SearchBar;

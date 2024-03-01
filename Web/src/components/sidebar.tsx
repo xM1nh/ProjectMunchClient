@@ -1,4 +1,4 @@
-import IconComponent from "./iconComponent";
+import IconComponent from "./IconComponent";
 
 const MapControlLargeSidebarComponent = () => {
   return (

@@ -25,7 +25,7 @@ const CarouselImage = ({ source }: { source: string }) => {
   );
 };
 
-const PointOfInterestSmallCard = ({
+const PointOfInterestCard = ({
   photos,
   name,
   description,
@@ -60,4 +60,4 @@ const PointOfInterestSmallCard = ({
   );
 };
 
-export default PointOfInterestSmallCard;
+export default PointOfInterestCard;

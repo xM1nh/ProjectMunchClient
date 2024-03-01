@@ -4,8 +4,10 @@ import Map, {
   NavigationControl,
 } from "react-map-gl";
 import { useEffect, useMemo, useRef, useState } from "react";
-import PointOfInterest from "./pointOfInterest/pointOfInterest";
+import PointOfInterest from "./PointOfInterest/PointOfInterest";
 import { TCoordinates, TPointOfInterest } from "@/types";
+import UserAddedPointOfInterest from "./PointOfInterest/UserAddedPointOfInterest";
+import { MAPBOX_ACCESS_TOKEN } from "@/config";
 
 const ZOOM = 14;
 
@@ -15,6 +17,7 @@ const MapComponent = ({
   pointOfInterests: TPointOfInterest[];
 }) => {
   const mapRef = useRef<MapRef>(null);
+  const addedMarkerTriggerRef = useRef<HTMLDivElement | null>(null);
   const [isMouseEventsEnable, setIsMouseEventsEnable] = useState(true);
   const [userAddedMarkerCoords, setUserAddedMarkerCoords] =
     useState<TCoordinates | null>(null);
@@ -30,23 +33,12 @@ const MapComponent = ({
   };
 
   const handleMapClick = (e: MapLayerMouseEvent) => {
-    if (userAddedMarkerCoords) {
-      setUserAddedMarkerCoords({
-        longitude: e.lngLat.lng,
-        latitude: e.lngLat.lat,
-      });
-    } else {
-      setUserAddedMarkerCoords(null);
-    }
+    setUserAddedMarkerCoords({
+      longitude: e.lngLat.lng,
+      latitude: e.lngLat.lat,
+    });
+    addedMarkerTriggerRef.current?.click();
   };
-
-  const addedMarkerData: TPointOfInterest = {
-    longitude: userAddedMarkerCoords?.longitude as number,
-    latitude: userAddedMarkerCoords?.latitude as number,
-    name: "",
-    description: "",
-  };
-  const userAddedMarker = <PointOfInterest data={addedMarkerData} />;
 
   const markers = useMemo(
     () =>
@@ -57,7 +49,8 @@ const MapComponent = ({
             key={i}
             onMouseEnter={() => setIsMouseEventsEnable(false)}
             onMouseLeave={() => setIsMouseEventsEnable(true)}
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               if ((mapRef.current?.getZoom() as number) < ZOOM) {
                 mapRef.current?.flyTo({
                   center: [poi.longitude, poi.latitude],
@@ -84,7 +77,7 @@ const MapComponent = ({
   return (
     <Map
       ref={mapRef}
-      mapboxAccessToken="pk.eyJ1IjoidmFsdGlsaW9uIiwiYSI6ImNsczFibHY3cjA5aHAyanBlMnhwNm1jczEifQ.XAwnmiedi4X03hw5MyxBuA"
+      mapboxAccessToken={MAPBOX_ACCESS_TOKEN}
       initialViewState={{
         longitude: -117.9,
         latitude: 33.7,
@@ -99,7 +92,12 @@ const MapComponent = ({
       onClick={handleMapClick}
     >
       {markers}
-      {userAddedMarkerCoords && userAddedMarker}
+      {userAddedMarkerCoords && (
+        <UserAddedPointOfInterest
+          coords={userAddedMarkerCoords}
+          triggerRef={addedMarkerTriggerRef}
+        />
+      )}
       <NavigationControl position="bottom-right" />
     </Map>
   );

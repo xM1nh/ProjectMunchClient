@@ -1,12 +1,12 @@
-import MapControlComponent from "@/components/map/control/mapControlComponent";
-import Map from "../components/map/map";
-import Layout from "./layout";
-import MapSidebarComponent from "@/components/map/mapSidebarComponent";
-import IPointOfInterest from "@/types";
+import MapControl from "@/components/Map/Control/MapControl";
+import Map from "../components/Map/Map";
+import Layout from "../components/Layout/Layout";
+import MapSidebar from "@/components/Map/MapSidebar";
+import { TPointOfInterest } from "@/types";
 import PlaceholderImage from "@/assets/placeholder.jpg";
 import PlaceholderImage2 from "@/assets/placeholder2.png";
 
-const MOCK_DATA: IPointOfInterest[] = [
+const MOCK_DATA: TPointOfInterest[] = [
   {
     longitude: -117.9,
     latitude: 33.7,
@@ -65,12 +65,12 @@ const MapPage = () => {
   return (
     <Layout>
       <div className="flex w-full h-full relative">
-        <MapControlComponent />
+        <MapControl />
         <div className="w-full sm:w-3/4 lg:w-4/5 h-full relative ">
           <Map pointOfInterests={MOCK_DATA} />
         </div>
         <div className="w-0 sm:w-1/4 lg:w-1/5">
-          <MapSidebarComponent pointOfInterests={MOCK_DATA} />
+          <MapSidebar pointOfInterests={MOCK_DATA} />
         </div>
       </div>
     </Layout>

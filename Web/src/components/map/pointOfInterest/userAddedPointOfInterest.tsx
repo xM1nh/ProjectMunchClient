@@ -1,25 +1,56 @@
 import { Marker } from "react-map-gl";
-import IconComponent from "@/components/iconComponent";
+import IconComponent from "@/components/IconComponent";
 import { HTMLAttributes } from "react";
-import { TPointOfInterest } from "@/types";
-import PointOfInterestSmallCard from "./pointOfInterestSmallCard";
+import { TCoordinates } from "@/types";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import useReverseGeocoding from "@/hooks/useReverseGeocoding";
+import UserAddedPointOfInterestCard from "@/components/Map/PointOfInterest/UserAddedPointOfInterestPopup";
 
 interface IPointOfInterestProps extends HTMLAttributes<HTMLDivElement> {
-  data: TPointOfInterest;
+  coords: TCoordinates;
+  triggerRef: React.MutableRefObject<HTMLDivElement | null>;
 }
 
-const PointOfInterest = ({ data, ...props }: IPointOfInterestProps) => {
+const UserAddedPointOfInterest = ({
+  coords,
+  triggerRef,
+  ...props
+}: IPointOfInterestProps) => {
+  const { reverseGeocodingStatus, reverseGeocodingData } = useReverseGeocoding({
+    longitude: coords.longitude,
+    latitude: coords.latitude,
+  });
+
   return (
-    <div {...props}>
-      <Marker longitude={data.longitude} latitude={data.latitude} anchor="top">
-        <IconComponent
-          name="location_on"
-          fill={1}
-          className="text-5xl text-red-900 hover:cursor-pointer hover:outline-1 hover:outline-white"
-        />
-      </Marker>
-    </div>
+    <Sheet>
+      <SheetTrigger asChild>
+        <div ref={triggerRef}></div>
+      </SheetTrigger>
+      <SheetContent
+        side={"bottom"}
+        overlay={false}
+        className="min-w-60 max-w-80 h-fit p-4 inset-x-0 mx-auto mb-4 sm:right-1/4 lg:right-[20%] rounded-md"
+      >
+        <div {...props}>
+          <Marker
+            longitude={coords.longitude}
+            latitude={coords.latitude}
+            anchor="top"
+          >
+            <IconComponent
+              name="location_on"
+              fill={1}
+              className="text-5xl text-blue-900 hover:cursor-pointer hover:outline-1 hover:outline-white -translate-y-12"
+            />
+          </Marker>
+          <UserAddedPointOfInterestCard
+            status={reverseGeocodingStatus}
+            data={reverseGeocodingData}
+          />
+        </div>
+      </SheetContent>
+    </Sheet>
   );
 };
 
-export default PointOfInterest;
+export default UserAddedPointOfInterest;

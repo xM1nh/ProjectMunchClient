@@ -5,10 +5,10 @@ import {
 } from "@/components/ui/hover-card";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Marker } from "react-map-gl";
-import IconComponent from "@/components/iconComponent";
+import IconComponent from "@/components/IconComponent";
 import { HTMLAttributes } from "react";
 import { TPointOfInterest } from "@/types";
-import PointOfInterestSmallCard from "./pointOfInterestSmallCard";
+import PointOfInterestCard from "@/components/Map/PointOfInterest/PointOfInterestCard";
 
 interface IPointOfInterestProps extends HTMLAttributes<HTMLDivElement> {
   data: TPointOfInterest;
@@ -25,7 +25,7 @@ const PointOfInterest = ({ data, ...props }: IPointOfInterestProps) => {
                 <IconComponent
                   name="location_on"
                   fill={1}
-                  className="text-5xl text-red-900 hover:cursor-pointer hover:outline-1 hover:outline-white"
+                  className="text-5xl text-red-900 hover:cursor-pointer hover:outline-1 hover:outline-white -translate-y-12"
                 />
               </HoverCardTrigger>
             </DialogTrigger>
@@ -34,7 +34,7 @@ const PointOfInterest = ({ data, ...props }: IPointOfInterestProps) => {
               sideOffset={40}
               className="tooltip bg-white p-1"
             >
-              <PointOfInterestSmallCard
+              <PointOfInterestCard
                 photos={data.photos}
                 name={data.name}
                 description={data.description}

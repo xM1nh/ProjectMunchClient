@@ -5,8 +5,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import IconComponent from "@/components/iconComponent";
-import Sidebar from "@/components/sidebar";
+import IconComponent from "@/components/IconComponent";
+import Sidebar from "@/components/Sidebar";
 
 const HeaderMenu = () => {
   return (
@@ -15,7 +15,7 @@ const HeaderMenu = () => {
         <IconComponent name="menu" className="text-2xl" />
         <span className="hidden sm:block text-lg font-semibold">Menu</span>
       </SheetTrigger>
-      <SheetContent side={"left"} className="w-80">
+      <SheetContent side={"left"} className="w-80" overlay>
         <SheetHeader>
           <SheetTitle className="text-primary">Project Munch</SheetTitle>
         </SheetHeader>
