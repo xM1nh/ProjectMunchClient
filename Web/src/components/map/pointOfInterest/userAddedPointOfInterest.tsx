@@ -3,7 +3,7 @@ import IconComponent from "@/components/IconComponent";
 import { HTMLAttributes } from "react";
 import { TCoordinates } from "@/types";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import useReverseGeocoding from "@/hooks/useReverseGeocoding";
+import useGetReverseGeocoding from "@/hooks/useGetReverseGeocoding";
 import UserAddedPointOfInterestCard from "@/components/Map/PointOfInterest/UserAddedPointOfInterestPopup";
 
 interface IPointOfInterestProps extends HTMLAttributes<HTMLDivElement> {
@@ -16,10 +16,11 @@ const UserAddedPointOfInterest = ({
   triggerRef,
   ...props
 }: IPointOfInterestProps) => {
-  const { reverseGeocodingStatus, reverseGeocodingData } = useReverseGeocoding({
-    longitude: coords.longitude,
-    latitude: coords.latitude,
-  });
+  const { getReverseGeocodingStatus, getReverseGeocodingData } =
+    useGetReverseGeocoding({
+      longitude: coords.longitude,
+      latitude: coords.latitude,
+    });
 
   return (
     <Sheet>
@@ -44,8 +45,8 @@ const UserAddedPointOfInterest = ({
             />
           </Marker>
           <UserAddedPointOfInterestCard
-            status={reverseGeocodingStatus}
-            data={reverseGeocodingData}
+            status={getReverseGeocodingStatus}
+            data={getReverseGeocodingData}
           />
         </div>
       </SheetContent>

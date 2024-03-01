@@ -3,7 +3,7 @@ import { TCoordinates, TGetReverseGeocoding } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 
-const useReverseGeocoding = ({ longitude, latitude }: TCoordinates) => {
+const useGetReverseGeocoding = ({ longitude, latitude }: TCoordinates) => {
   const { status, error, data, refetch } = useQuery<
     TGetReverseGeocoding,
     Error
@@ -22,10 +22,10 @@ const useReverseGeocoding = ({ longitude, latitude }: TCoordinates) => {
   }, [longitude, latitude, refetch]);
 
   return {
-    reverseGeocodingStatus: status,
-    reverseGeocodingError: error,
-    reverseGeocodingData: data,
+    getReverseGeocodingStatus: status,
+    getReverseGeocodingError: error,
+    getReverseGeocodingData: data,
   };
 };
 
-export default useReverseGeocoding;
+export default useGetReverseGeocoding;
