@@ -4,9 +4,9 @@ import Map, {
   NavigationControl,
 } from "react-map-gl";
 import { useEffect, useMemo, useRef, useState } from "react";
-import PointOfInterest from "./PointOfInterest/PointOfInterest";
+import PointOfInterest from "@/components/Map/PointOfInterest/PointOfInterest";
 import { TCoordinates, TPointOfInterest } from "@/types";
-import UserAddedPointOfInterest from "./PointOfInterest/UserAddedPointOfInterest";
+import UserAddedPointOfInterest from "@/components/Map/PointOfInterest/UserAddedPointOfInterest";
 import { MAPBOX_ACCESS_TOKEN } from "@/config";
 
 const ZOOM = 14;
