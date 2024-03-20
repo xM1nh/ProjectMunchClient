@@ -11,6 +11,12 @@ export default defineConfig({
   test: {
     environment: "jsdom",
   },
+  server: {
+    https: {
+      key: "./projectmunch-privateKey.key",
+      cert: "./projectmunch.crt",
+    },
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

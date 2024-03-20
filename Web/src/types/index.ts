@@ -53,3 +53,19 @@ type TFeature = {
     };
   };
 };
+
+export type TPostRegisterRequest = {
+  userName: string;
+  email: string;
+  password: string;
+};
+
+export type TPostLoginRequest = {
+  userName: string;
+  password: string;
+};
+
+export type TUser = {
+  userName: string;
+  roles: string[];
+};
