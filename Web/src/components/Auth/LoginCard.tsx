@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import usePostLogin from "@/hooks/usePostLogin";
+import useAuthentication from "@/hooks/useAuthenticationEndpoints";
 import { ErrorMessage } from "@hookform/error-message";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -24,10 +24,10 @@ const LoginCard = () => {
     handleSubmit,
   } = useForm<IFormInput>();
 
-  const loginMutation = usePostLogin();
+  const { login } = useAuthentication.usePostLogin();
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    loginMutation.mutate({ userName: data.userName, password: data.password });
+    login({ userName: data.userName, password: data.password });
   };
 
   return (

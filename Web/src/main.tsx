@@ -6,7 +6,7 @@ import { ThemeProvider } from "@/components/Providers/ThemeProvider.tsx";
 import {
   QueryClient,
   QueryClientProvider,
-  QueryKey,
+  QueryFunction,
 } from "@tanstack/react-query";
 import { API_BASE_URL } from "./config";
 import { Toaster } from "@/components/ui/sonner";
@@ -15,12 +15,13 @@ import { BrowserRouter } from "react-router-dom";
 import { UserProvider } from "./components/Providers/UserProvider.tsx";
 import { AuthModalProvider } from "./components/Providers/AuthModalProvider.tsx";
 
-const defaultQueryFn = async ({ queryKey }: { queryKey: QueryKey }) =>
+const defaultQueryFn: QueryFunction = async ({ queryKey }) =>
   await fetch(`${API_BASE_URL}${queryKey[0]}`, {
     headers: {
       "Content-Type": "application/json",
     },
     mode: "cors",
+    credentials: "include",
   })
     .then((res) => res.json())
     .then((data) => data);
