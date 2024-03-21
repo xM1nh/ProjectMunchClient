@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { ThemeProvider } from "@/components/context/themeProvider.tsx";
+import { ThemeProvider } from "@/components/Providers/ThemeProvider.tsx";
 import {
   QueryClient,
   QueryClientProvider,
@@ -12,6 +12,8 @@ import { API_BASE_URL } from "./config";
 import { Toaster } from "@/components/ui/sonner";
 import RouteSwitch from "./RouteSwitch.tsx";
 import { BrowserRouter } from "react-router-dom";
+import { UserProvider } from "./components/Providers/UserProvider.tsx";
+import { AuthModalProvider } from "./components/Providers/AuthModalProvider.tsx";
 
 const defaultQueryFn = async ({ queryKey }: { queryKey: QueryKey }) =>
   await fetch(`${API_BASE_URL}${queryKey[0]}`, {
@@ -35,10 +37,14 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ThemeProvider defaultTheme="light" storageKey="ui-theme">
       <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <RouteSwitch />
-          <Toaster />
-        </BrowserRouter>
+        <UserProvider>
+          <AuthModalProvider>
+            <BrowserRouter>
+              <RouteSwitch />
+              <Toaster />
+            </BrowserRouter>
+          </AuthModalProvider>
+        </UserProvider>
       </QueryClientProvider>
     </ThemeProvider>
   </React.StrictMode>

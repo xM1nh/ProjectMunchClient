@@ -17,10 +17,10 @@ const MapComponent = ({
   pointOfInterests: TPointOfInterest[];
 }) => {
   const mapRef = useRef<MapRef>(null);
-  const addedMarkerTriggerRef = useRef<HTMLDivElement | null>(null);
   const [isMouseEventsEnable, setIsMouseEventsEnable] = useState(true);
   const [userAddedMarkerCoords, setUserAddedMarkerCoords] =
     useState<TCoordinates | null>(null);
+  const [openUserAddedMarker, setOpenUserAddedMarker] = useState(false);
 
   const onLocationSuccess = (position: GeolocationPosition) => {
     const lat = position.coords.latitude;
@@ -37,7 +37,7 @@ const MapComponent = ({
       longitude: e.lngLat.lng,
       latitude: e.lngLat.lat,
     });
-    addedMarkerTriggerRef.current?.click();
+    setOpenUserAddedMarker(true);
   };
 
   const markers = useMemo(
@@ -95,7 +95,8 @@ const MapComponent = ({
       {userAddedMarkerCoords && (
         <UserAddedPointOfInterest
           coords={userAddedMarkerCoords}
-          triggerRef={addedMarkerTriggerRef}
+          open={openUserAddedMarker}
+          onOpenChange={setOpenUserAddedMarker}
         />
       )}
       <NavigationControl position="bottom-right" />

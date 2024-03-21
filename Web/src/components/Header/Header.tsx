@@ -7,9 +7,13 @@ import {
 
 import HeaderMenu from "@/components/Header/HeaderMenu";
 import HeaderAvatar from "@/components/Header/HeaderAvatar";
-import HeaderLogin from "./HeaderLogin";
+import { useUser } from "../Providers/UserProvider";
+import { useAuthModal } from "../Providers/AuthModalProvider";
 
 const Header = () => {
+  const { user } = useUser();
+  const { openAuthModal } = useAuthModal();
+
   return (
     <header>
       <NavigationMenu>
@@ -28,8 +32,13 @@ const Header = () => {
           </div>
           <div className="navbar-end">
             <NavigationMenuItem>
-              {/* <HeaderAvatar /> */}
-              <HeaderLogin />
+              {user ? (
+                <HeaderAvatar />
+              ) : (
+                <button className="btn btn-ghost" onClick={openAuthModal}>
+                  Log In
+                </button>
+              )}
             </NavigationMenuItem>
           </div>
         </NavigationMenuList>

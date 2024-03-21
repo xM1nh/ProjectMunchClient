@@ -2,18 +2,20 @@ import { Marker } from "react-map-gl";
 import IconComponent from "@/components/IconComponent";
 import { HTMLAttributes } from "react";
 import { TCoordinates } from "@/types";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
 import useGetReverseGeocoding from "@/hooks/useGetReverseGeocoding";
 import UserAddedPointOfInterestCard from "@/components/Map/PointOfInterest/UserAddedPointOfInterestPopup";
 
 interface IPointOfInterestProps extends HTMLAttributes<HTMLDivElement> {
   coords: TCoordinates;
-  triggerRef: React.MutableRefObject<HTMLDivElement | null>;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 }
 
 const UserAddedPointOfInterest = ({
   coords,
-  triggerRef,
+  open,
+  onOpenChange,
   ...props
 }: IPointOfInterestProps) => {
   const { getReverseGeocodingStatus, getReverseGeocodingData } =
@@ -23,10 +25,7 @@ const UserAddedPointOfInterest = ({
     });
 
   return (
-    <Sheet>
-      <SheetTrigger asChild>
-        <div ref={triggerRef}></div>
-      </SheetTrigger>
+    <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent
         side={"bottom"}
         overlay={false}

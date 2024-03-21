@@ -64,7 +64,7 @@ const SearchBar = () => {
             onOpenAutoFocus={(e) => e.preventDefault()}
             onCloseAutoFocus={(e) => e.preventDefault()}
             onInteractOutside={(e) => {
-              if (e.target == inputRef.current) {
+              if (e.target === inputRef.current) {
                 e.preventDefault();
               }
             }}
