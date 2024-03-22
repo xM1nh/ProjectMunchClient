@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import useAuthentication from "@/hooks/useAuthenticationEndpoints";
+import useAuthenticationApi from "@/hooks/useAuthenticationApi";
 import { ErrorMessage } from "@hookform/error-message";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -24,10 +24,10 @@ const LoginCard = () => {
     handleSubmit,
   } = useForm<IFormInput>();
 
-  const { login } = useAuthentication.usePostLogin();
+  const { login } = useAuthenticationApi.usePostLogin();
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    login({ userName: data.userName, password: data.password });
+    login(data);
   };
 
   return (
