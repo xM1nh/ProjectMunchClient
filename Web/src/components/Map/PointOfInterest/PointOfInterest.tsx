@@ -3,12 +3,13 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { Marker } from "react-map-gl";
 import IconComponent from "@/components/IconComponent";
 import { HTMLAttributes } from "react";
 import { TPointOfInterest } from "@/types";
 import PointOfInterestCard from "@/components/Map/PointOfInterest/PointOfInterestCard";
+import PointOfInterestBigCard from "@/components/Map/PointOfInterest/PointOfInterestBigCard";
 
 interface IPointOfInterestProps extends HTMLAttributes<HTMLDivElement> {
   data: TPointOfInterest;
@@ -34,14 +35,9 @@ const PointOfInterest = ({ data, ...props }: IPointOfInterestProps) => {
               sideOffset={40}
               className="tooltip bg-white p-1"
             >
-              <PointOfInterestCard
-                photos={data.photos}
-                name={data.name}
-                description={data.description}
-                review={data.reviews}
-              />
+              <PointOfInterestCard data={data} />
             </HoverCardContent>
-            <DialogContent>Test</DialogContent>
+            <PointOfInterestBigCard data={data} />
           </HoverCard>
         </Dialog>
       </Marker>

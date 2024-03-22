@@ -4,7 +4,7 @@ export type TPointOfInterest = {
   name: string;
   description: string;
   reviews?: number;
-  photos?: string[];
+  photos: string[];
 };
 
 export type TCoordinates = {

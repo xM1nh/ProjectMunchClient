@@ -5,56 +5,60 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
-import { HTMLAttributes } from "react";
+import { HTMLAttributes, useState } from "react";
+import PointOfInterestBigCard from "@/components/Map/PointOfInterest/PointOfInterestBigCard";
+import { TPointOfInterest } from "@/types";
+import PlaceholderImage from "@/assets/placeholder.jpg";
 
 interface IPointOfInterestHoverCardProps
   extends HTMLAttributes<HTMLDivElement> {
-  photos?: string[];
-  name: string;
-  description: string;
-  review?: number;
+  data: TPointOfInterest;
 }
 
 const CarouselImage = ({ source }: { source: string }) => {
   return (
     <CarouselItem>
-      <img src={source} className="w-full md:h-40 lg:h-60 object-cover" />
+      <img src={source} className="w-full object-cover" />
     </CarouselItem>
   );
 };
 
 const PointOfInterestCard = ({
-  photos,
-  name,
-  description,
-  review,
+  data,
   className,
   ...props
 }: IPointOfInterestHoverCardProps) => {
+  const [open, setOpen] = useState(false);
+
   return (
     <div className={cn("", className)} {...props}>
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <Carousel opts={{ loop: true }}>
           <DialogTrigger asChild>
             <CarouselContent className="cursor-pointer">
-              {photos?.map((photo, i) => {
-                return <CarouselImage source={photo} key={`asdf${i}`} />;
-              })}
+              {data.photos.length === 0 ? (
+                <CarouselImage source={PlaceholderImage} />
+              ) : (
+                data.photos.map((photo, i) => {
+                  return <CarouselImage source={photo} key={`asdf${i}`} />;
+                })
+              )}
             </CarouselContent>
           </DialogTrigger>
           <CarouselPrevious variant={"ghost"} className="h-full rounded-none" />
           <CarouselNext variant={"ghost"} className="h-full rounded-none" />
         </Carousel>
-        <DialogTrigger asChild>
-          <div className="flex flex-col items-start p-2 cursor-pointer">
-            <p className="font-bold text-lg">{name}</p>
-            <p>{review}</p>
-            <p>{description}</p>
-          </div>
-        </DialogTrigger>
-        <DialogContent>Test</DialogContent>
+        <div
+          className="flex flex-col items-start p-2 cursor-pointer relative"
+          onClick={() => setOpen(true)}
+        >
+          <p className="font-bold text-lg">{data.name}</p>
+          <p>{data.reviews}</p>
+          <p>{data.description}</p>
+        </div>
+        <PointOfInterestBigCard data={data} />
       </Dialog>
     </div>
   );

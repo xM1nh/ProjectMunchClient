@@ -52,12 +52,7 @@ const MOCK_DATA: TPointOfInterest[] = [
     name: "Home",
     description: "home",
     reviews: 1,
-    photos: [
-      PlaceholderImage,
-      PlaceholderImage2,
-      PlaceholderImage,
-      PlaceholderImage,
-    ],
+    photos: [],
   },
 ];
 

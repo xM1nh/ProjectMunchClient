@@ -11,10 +11,7 @@ const MapSidebarComponent = ({
       {pointOfInterests.map((poi, i) => {
         return (
           <PointOfInterestCard
-            photos={poi.photos}
-            name={poi.name}
-            description={poi.description}
-            review={poi.reviews}
+            data={poi}
             key={`nmb${i}`}
             className="m-1 rounded-sm overflow-hidden h-fit shadow-md shadow-slate-200"
           />
